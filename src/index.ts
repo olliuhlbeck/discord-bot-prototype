@@ -1,6 +1,9 @@
 import { Client, GatewayIntentBits } from "discord.js";
 import dotenv from "dotenv";
 dotenv.config();
+import pingCommand from "./commands/ping.ts";
+
+const prefix = "!";
 
 const harryBotter = new Client({
   intents: [
@@ -15,8 +18,10 @@ harryBotter.on("clientReady", () => {
 });
 
 harryBotter.on("messageCreate", (msg) => {
-  if (msg.content === "!ping") {
-    msg.reply("pong");
+  if (!msg.content.startsWith(prefix)) return;
+  const commandName = msg.content.slice(prefix.length).trim();
+  if (commandName === pingCommand.name) {
+    pingCommand.execute(msg);
   }
 });
 

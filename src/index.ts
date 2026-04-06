@@ -31,7 +31,8 @@ harryBotter.on("clientReady", () => {
 harryBotter.on("messageCreate", (msg) => {
   if (!msg.content.startsWith(prefix)) return;
 
-  const commandName = msg.content.slice(prefix.length).trim();
+  const args = msg.content.slice(prefix.length).trim().split(/ +/);
+  const commandName = args.shift();
 
   const command = commands.get(commandName);
   if (!command) {
@@ -40,7 +41,7 @@ harryBotter.on("messageCreate", (msg) => {
     });
     return;
   }
-  command.execute(msg);
+  command.execute(msg, args);
 });
 
 // Log in to Discord with the bot token

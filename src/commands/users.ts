@@ -6,7 +6,7 @@ const usersCommand = {
     try {
       const members = await message.guild?.members.fetch();
       const memberList = members
-        ?.map((member) => `${member.user.tag} (${member.id})`)
+        ?.map((member) => `${member.user.username} (${member.id})`)
         .join("\n");
       message.reply(`${members?.size} users in this server:\n${memberList}`);
     } catch (error) {

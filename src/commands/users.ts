@@ -1,5 +1,6 @@
 import { Message } from "discord.js";
 
+// Command to list all users in the server
 const usersCommand = {
   name: "users",
   async execute(message: Message) {

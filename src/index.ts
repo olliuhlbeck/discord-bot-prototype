@@ -4,8 +4,15 @@ dotenv.config();
 import pingCommand from "./commands/ping.ts";
 import usersCommand from "./commands/users.ts";
 
+// Bot prefix for commands
 const prefix = "!";
 
+// Create a map of commands for easy access
+const commands = new Map();
+commands.set(pingCommand.name, pingCommand);
+commands.set(usersCommand.name, usersCommand);
+
+// Initialize the Discord client with necessary intents
 const harryBotter = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -15,19 +22,26 @@ const harryBotter = new Client({
   ],
 });
 
+// Event listener for when the bot is ready
 harryBotter.on("clientReady", () => {
   console.log(`Logged in as ${harryBotter.user?.tag}!`);
 });
 
+// Event listener for incoming messages
 harryBotter.on("messageCreate", (msg) => {
   if (!msg.content.startsWith(prefix)) return;
+
   const commandName = msg.content.slice(prefix.length).trim();
-  if (commandName === pingCommand.name) {
-    pingCommand.execute(msg);
+
+  const command = commands.get(commandName);
+  if (!command) {
+    msg.reply("Unknown command!").catch((error) => {
+      console.error("Failed to send reply:", error);
+    });
+    return;
   }
-  if (commandName === usersCommand.name) {
-    usersCommand.execute(msg);
-  }
+  command.execute(msg);
 });
 
+// Log in to Discord with the bot token
 harryBotter.login(process.env.TOKEN!);

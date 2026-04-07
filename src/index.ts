@@ -1,8 +1,8 @@
 import { Client, GatewayIntentBits } from "discord.js";
 import dotenv from "dotenv";
 dotenv.config();
-import pingCommand from "./commands/ping.ts";
-import usersCommand from "./commands/users.ts";
+import pingCommand from "./commands/ping.js";
+import usersCommand from "./commands/users.js";
 
 // Bot prefix for commands
 const prefix = "!";
@@ -18,6 +18,7 @@ const harryBotter = new Client({
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildPresences,
     GatewayIntentBits.MessageContent,
   ],
 });

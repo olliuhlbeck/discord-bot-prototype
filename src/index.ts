@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import pingCommand from "./commands/ping.js";
 import usersCommand from "./commands/users.js";
+import clearCommand from "./commands/clear.js";
 
 // Bot prefix for commands
 const prefix = "!";
@@ -11,6 +12,7 @@ const prefix = "!";
 const commands = new Map();
 commands.set(pingCommand.name, pingCommand);
 commands.set(usersCommand.name, usersCommand);
+commands.set(clearCommand.name, clearCommand);
 
 // Initialize the Discord client with necessary intents
 const harryBotter = new Client({

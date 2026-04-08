@@ -1,0 +1,31 @@
+import { Message } from "discord.js";
+import { PermissionFlagsBits } from "discord.js";
+
+const clearCommand = {
+  name: "clear",
+  async execute(message: Message, args: string[]) {
+    if (!message.inGuild()) return;
+    if (!message.channel.isTextBased()) return;
+
+    if (!message.member?.permissions.has(PermissionFlagsBits.ManageMessages)) {
+      message.reply("You don't have permission to use this command.");
+      return;
+    }
+
+    const amount = parseInt(args[0] ?? "10") || 10;
+    if (amount < 1 || amount > 100) {
+      message.reply("Please specify a number between 1 and 100.");
+      return;
+    }
+
+    const messages = await message.channel.messages.fetch({
+      limit: amount + 1,
+    });
+    const deleted = await message.channel.bulkDelete(messages, true);
+    await message.channel
+      .send(`Deleted ${deleted.size - 1} messages.`)
+      .catch(console.error);
+  },
+};
+
+export default clearCommand;

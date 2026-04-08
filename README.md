@@ -6,4 +6,4 @@ The bot responds to simple commands like ping, greeting users, and displaying he
 ## Features
 
 - !ping for server check
-- !users to count and list users
+- !users with count, list and online subcommands

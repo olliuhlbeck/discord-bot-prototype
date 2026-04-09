@@ -23,9 +23,14 @@ const clearCommand = {
       limit: amount + 1,
     });
     const deleted = await message.channel.bulkDelete(messages, true);
+
+    const countDeleted = deleted.has(message.id)
+      ? deleted.size - 1
+      : deleted.size;
+
     try {
       const deletionMessage = await message.channel.send(
-        `Deleted ${deleted.size - 1} messages.`,
+        `Deleted ${countDeleted} messages.`,
       );
 
       setTimeout(() => {

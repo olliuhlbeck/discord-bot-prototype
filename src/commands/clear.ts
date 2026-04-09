@@ -1,6 +1,7 @@
 import { Message } from "discord.js";
 import { PermissionFlagsBits } from "discord.js";
 
+// Command to clear a specified number of messages from the current channel
 const clearCommand = {
   name: "clear",
   async execute(message: Message, args: string[]) {

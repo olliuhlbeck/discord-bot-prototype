@@ -23,9 +23,17 @@ const clearCommand = {
       limit: amount + 1,
     });
     const deleted = await message.channel.bulkDelete(messages, true);
-    await message.channel
-      .send(`Deleted ${deleted.size - 1} messages.`)
-      .catch(console.error);
+    try {
+      const deletionMessage = await message.channel.send(
+        `Deleted ${deleted.size - 1} messages.`,
+      );
+
+      setTimeout(() => {
+        deletionMessage.delete().catch(() => {});
+      }, 5000);
+    } catch (error) {
+      console.error("Failed to send deletion confirmation:", error);
+    }
   },
 };
 

@@ -8,3 +8,4 @@ The bot responds to simple commands like ping, greeting users, and displaying he
 - !ping for server check
 - !users with count, list, and online subcommands for user related commands
 - !clear <amount> for message deletion
+- !kick @user for user removal

@@ -18,7 +18,7 @@ const usersCommand = {
 
       // !users list <number> - List first N users in the server
       if (subCommand === "list") {
-        const amount = parseInt(args[1] ?? "5") || 5;
+        const amount = Math.min(parseInt(args[1] ?? "5") || 5, 20);
         const memberArray = Array.from(members?.values());
         const listedMembers = memberArray.slice(0, amount);
         const memberList = listedMembers

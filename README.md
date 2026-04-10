@@ -1,7 +1,7 @@
 # Discord bot prototype
 
 A basic Discord bot built using Node.js and discord.js.  
-The bot responds to simple commands like ping, greeting users, and displaying help messages.
+The bot responds to simple commands like server pinging and user listing/kicking. See full list of features below.
 
 ## Features
 

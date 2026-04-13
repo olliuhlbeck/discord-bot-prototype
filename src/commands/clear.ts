@@ -1,21 +1,22 @@
 import { Message } from "discord.js";
 import { PermissionFlagsBits } from "discord.js";
+import type { Command } from "../types/Command.ts";
 
 // Command to clear a specified number of messages from the current channel
-const clearCommand = {
+const clearCommand: Command = {
   name: "clear",
   async execute(message: Message, args: string[]) {
     if (!message.inGuild()) return;
     if (!message.channel.isTextBased()) return;
 
     if (!message.member?.permissions.has(PermissionFlagsBits.ManageMessages)) {
-      message.reply("You don't have permission to use this command.");
+      await message.reply("You don't have permission to use this command.");
       return;
     }
 
     const amount = parseInt(args[0] ?? "10") || 10;
     if (amount < 1 || amount > 100) {
-      message.reply("Please specify a number between 1 and 100.");
+      await message.reply("Please specify a number between 1 and 100.");
       return;
     }
 

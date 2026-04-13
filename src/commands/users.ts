@@ -1,7 +1,8 @@
 import { Message } from "discord.js";
+import type { Command } from "../types/Command.ts";
 
 // Command to list all users in the server
-const usersCommand = {
+const usersCommand: Command = {
   name: "users",
   async execute(message: Message, args: string[]) {
     if (!message.guild) return;

@@ -5,6 +5,7 @@ import pingCommand from "./commands/ping.js";
 import usersCommand from "./commands/users.js";
 import clearCommand from "./commands/clear.js";
 import kickCommand from "./commands/kick.js";
+import banCommand from "./commands/ban.js";
 
 // Bot prefix for commands
 const prefix = "!";
@@ -15,6 +16,7 @@ commands.set(pingCommand.name, pingCommand);
 commands.set(usersCommand.name, usersCommand);
 commands.set(clearCommand.name, clearCommand);
 commands.set(kickCommand.name, kickCommand);
+commands.set(banCommand.name, banCommand);
 
 // Initialize the Discord client with necessary intents
 const harryBotter = new Client({

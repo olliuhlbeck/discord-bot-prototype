@@ -1,6 +1,7 @@
 import { Message, PermissionFlagsBits } from "discord.js";
+import type { Command } from "../types/Command.ts";
 
-const kickCommand = {
+const kickCommand: Command = {
   name: "kick",
   async execute(message: Message, args: string[]) {
     if (!message.inGuild()) return;

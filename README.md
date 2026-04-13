@@ -9,3 +9,4 @@ The bot responds to simple commands like server pinging and user listing/kicking
 - `!users` with count, list, and online subcommands for user related commands
 - `!clear <amount>` for message deletion
 - `!kick @user` for user removal
+- `!ban @user` for user ban

@@ -1,22 +1,35 @@
 import { Client, GatewayIntentBits } from "discord.js";
 import dotenv from "dotenv";
 dotenv.config();
-import pingCommand from "./commands/ping.js";
-import usersCommand from "./commands/users.js";
-import clearCommand from "./commands/clear.js";
-import kickCommand from "./commands/kick.js";
-import banCommand from "./commands/ban.js";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath, pathToFileURL } from "url";
+import type { Command } from "./types/Command.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Bot prefix for commands
 const prefix = "!";
 
-// Create a map of commands for easy access
-const commands = new Map();
-commands.set(pingCommand.name, pingCommand);
-commands.set(usersCommand.name, usersCommand);
-commands.set(clearCommand.name, clearCommand);
-commands.set(kickCommand.name, kickCommand);
-commands.set(banCommand.name, banCommand);
+// Automatically load all command files from the commands directory
+const commands = new Map<string, Command>();
+
+const commandsPath = path.join(__dirname, "commands");
+const commandFiles = fs
+  .readdirSync(commandsPath)
+  .filter((file) => file.endsWith(".js"));
+
+for (const file of commandFiles) {
+  const filePath = path.join(commandsPath, file);
+  const commandModule = await import(pathToFileURL(filePath).href);
+  const command: Command = commandModule.default;
+  if (command && command.name) {
+    commands.set(command.name, command);
+  } else {
+    console.warn(`Command in ${file} is missing a name or default export.`);
+  }
+}
 
 // Initialize the Discord client with necessary intents
 const harryBotter = new Client({
@@ -40,6 +53,7 @@ harryBotter.on("messageCreate", (msg) => {
 
   const args = msg.content.slice(prefix.length).trim().split(/ +/);
   const commandName = args.shift();
+  if (!commandName) return;
 
   const command = commands.get(commandName);
   if (!command) {

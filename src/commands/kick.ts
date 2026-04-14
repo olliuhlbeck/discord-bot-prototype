@@ -1,6 +1,7 @@
 import { Message, PermissionFlagsBits } from "discord.js";
 import type { Command } from "../types/Command.ts";
 
+// Command to ban a user from the server
 const kickCommand: Command = {
   name: "kick",
   async execute(message: Message, args: string[]) {

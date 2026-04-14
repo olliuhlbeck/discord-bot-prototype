@@ -48,7 +48,7 @@ harryBotter.on("clientReady", () => {
 });
 
 // Event listener for incoming messages
-harryBotter.on("messageCreate", (msg) => {
+harryBotter.on("messageCreate", async (msg) => {
   if (!msg.content.startsWith(prefix)) return;
 
   const args = msg.content.slice(prefix.length).trim().split(/ +/);
@@ -57,12 +57,22 @@ harryBotter.on("messageCreate", (msg) => {
 
   const command = commands.get(commandName);
   if (!command) {
-    msg.reply("Unknown command!").catch((error) => {
-      console.error("Failed to send reply:", error);
-    });
+    try {
+      await msg.reply("Unknown command!").catch((error) => {
+        console.error("Failed to send reply:", error);
+      });
+    } catch (error) {
+      console.error("Failed to send unknown command reply:", error);
+    }
     return;
   }
-  command.execute(msg, args);
+
+  try {
+    await command.execute(msg, args);
+  } catch (error) {
+    console.error(`Error executing command ${commandName}:`, error);
+    await msg.reply("There was an error executing last command.");
+  }
 });
 
 // Log in to Discord with the bot token

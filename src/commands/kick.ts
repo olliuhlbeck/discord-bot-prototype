@@ -10,26 +10,26 @@ const kickCommand: Command = {
 
     // Check permission to kick members
     if (!message.member?.permissions.has(PermissionFlagsBits.KickMembers)) {
-      message.reply("You don't have permission to use this command.");
+      await message.reply("You don't have permission to use this command.");
       return;
     }
 
     // Check who is subject of kicking
     const kickSubject = message.mentions.members?.first();
     if (!kickSubject) {
-      message.reply("Cannot kick without mention of a user.");
+      await message.reply("Cannot kick without mention of a user.");
       return;
     }
 
     // Prevent self kick
     if (kickSubject.id === message.author.id) {
-      message.reply("You cannot kick yourself.");
+      await message.reply("You cannot kick yourself.");
       return;
     }
 
     // Check if the bot has permission to kick the user
     if (!kickSubject.kickable) {
-      message.reply("I don't have permission to kick this user.");
+      await message.reply("I don't have permission to kick this user.");
       return;
     }
 

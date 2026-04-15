@@ -13,7 +13,7 @@ const usersCommand: Command = {
 
       // !users count - Show total user count
       if (subCommand === "count") {
-        message.reply(`There are ${members?.size} users in this server.`);
+        await message.reply(`There are ${members?.size} users in this server.`);
         return;
       }
 
@@ -25,7 +25,9 @@ const usersCommand: Command = {
         const memberList = listedMembers
           .map((member) => `${member.user.username} (${member.id})`)
           .join("\n");
-        message.reply(`First ${amount} users in this server:\n${memberList}`);
+        await message.reply(
+          `First ${amount} users in this server:\n${memberList}`,
+        );
         return;
       }
 
@@ -36,7 +38,7 @@ const usersCommand: Command = {
         );
 
         if (!onlineMembers || onlineMembers.size === 0) {
-          message.reply("No users are currently online in this server.");
+          await message.reply("No users are currently online in this server.");
           return;
         }
 
@@ -44,17 +46,19 @@ const usersCommand: Command = {
           .slice(0, 20)
           ?.map((member) => `${member.user.username} (${member.id})`)
           .join("\n");
-        message.reply(`Online users in this server:\n${memberList}`);
+        await message.reply(`Online users in this server:\n${memberList}`);
         return;
       }
 
       const memberList = members
         ?.map((member) => `${member.user.username} (${member.id})`)
         .join("\n");
-      message.reply(`${members?.size} users in this server:\n${memberList}`);
+      await message.reply(
+        `${members?.size} users in this server:\n${memberList}`,
+      );
     } catch (error) {
       console.error("Failed to fetch members:", error);
-      message.reply("Sorry, I couldn't fetch the user list.");
+      await message.reply("Sorry, I couldn't fetch the user list.");
     }
   },
 };

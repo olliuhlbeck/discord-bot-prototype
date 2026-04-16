@@ -3,7 +3,7 @@ import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
 export interface Command {
   name: string;
   description?: string;
-  data?: SlashCommandBuilder;
+  data: SlashCommandBuilder;
 
   executeInteraction(
     interaction: ChatInputCommandInteraction,

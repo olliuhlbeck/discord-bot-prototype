@@ -32,7 +32,7 @@ for (const file of commandFiles) {
 }
 
 // Initialize the Discord client with necessary intents
-const harryBotter = new Client({
+const Spearfish = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMembers,
@@ -43,12 +43,12 @@ const harryBotter = new Client({
 });
 
 // Event listener for when the bot is ready
-harryBotter.on("clientReady", () => {
-  console.log(`Logged in as ${harryBotter.user?.tag}!`);
+Spearfish.on("clientReady", () => {
+  console.log(`Logged in as ${Spearfish.user?.tag}!`);
 });
 
 // Event listener for incoming messages
-harryBotter.on("messageCreate", async (msg) => {
+Spearfish.on("messageCreate", async (msg) => {
   if (!msg.content.startsWith(prefix)) return;
 
   const args = msg.content.slice(prefix.length).trim().split(/ +/);
@@ -76,4 +76,4 @@ harryBotter.on("messageCreate", async (msg) => {
 });
 
 // Log in to Discord with the bot token
-harryBotter.login(process.env.TOKEN!);
+Spearfish.login(process.env.TOKEN!);

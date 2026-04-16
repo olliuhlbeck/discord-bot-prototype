@@ -29,7 +29,7 @@ const banCommand: Command = {
 
     // Prevent banning the bot itself
     if (banSubject.id === message.client.user?.id) {
-      await message.reply("No one can ban harry-botter!");
+      await message.reply("No one can ban Spearfish!");
       return;
     }
 

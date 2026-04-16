@@ -1,12 +1,15 @@
-import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
+import {
+  ChatInputCommandInteraction,
+  SlashCommandBuilder,
+  SlashCommandSubcommandBuilder,
+  type SlashCommandOptionsOnlyBuilder,
+} from "discord.js";
 
 export interface Command {
-  name: string;
-  description?: string;
-  data: SlashCommandBuilder;
+  // Using any type in data since Discord.js's command builders have a complex type that can be difficult to represent accurately in a simple interface.
+  // The actual type of data will depend on the specific command builder used (e.g., SlashCommandBuilder, SlashCommandSubcommandBuilder, etc.).
+  // Discord.js also validates the command data at runtime, so we can be flexible here.
+  data: any;
 
-  executeInteraction(
-    interaction: ChatInputCommandInteraction,
-    args?: string[],
-  ): Promise<void>;
+  execute(interaction: ChatInputCommandInteraction): Promise<void>;
 }

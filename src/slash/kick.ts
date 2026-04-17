@@ -1,6 +1,7 @@
 import {
   ChatInputCommandInteraction,
   GuildMember,
+  MessageFlags,
   PermissionFlagsBits,
   SlashCommandBuilder,
 } from "discord.js";
@@ -32,7 +33,7 @@ const kickCommand: Command = {
     if (!member?.permissions.has(PermissionFlagsBits.KickMembers)) {
       await interaction.reply({
         content: "You don't have permission to use this command.",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -43,7 +44,7 @@ const kickCommand: Command = {
     if (!kickSubject) {
       await interaction.reply({
         content: "Cannot kick without mention of a user.",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -52,7 +53,7 @@ const kickCommand: Command = {
     if (kickSubject.id === interaction.user.id) {
       await interaction.reply({
         content: "You cannot kick yourself.",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -61,7 +62,7 @@ const kickCommand: Command = {
     if (!kickSubject.kickable) {
       await interaction.reply({
         content: "I don't have permission to kick this user.",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -70,7 +71,7 @@ const kickCommand: Command = {
     if (kickSubject.roles.highest.position >= member.roles.highest.position) {
       await interaction.reply({
         content: "You cannot kick this user (role hierarchy).",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -82,12 +83,16 @@ const kickCommand: Command = {
     // Attempt actual kick
     try {
       await kickSubject.kick(reasonForKick);
-      await interaction.reply(
-        `${kickSubject.user.tag} was kicked. Reason for kick: ${reasonForKick}`,
-      );
+      await interaction.reply({
+        content: `${kickSubject.user.tag} was kicked. Reason for kick: ${reasonForKick}`,
+        flags: MessageFlags.Ephemeral,
+      });
     } catch (error) {
       console.error("Failed to kick member:", error);
-      await interaction.reply("I could not kick that user.");
+      await interaction.reply({
+        content: "I could not kick that user.",
+        flags: MessageFlags.Ephemeral,
+      });
     }
   },
 };

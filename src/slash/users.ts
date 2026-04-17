@@ -1,4 +1,8 @@
-import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
+import {
+  ChatInputCommandInteraction,
+  MessageFlags,
+  SlashCommandBuilder,
+} from "discord.js";
 import type { Command } from "../types/Command.ts";
 
 // Command to list users with different options (total count, list of users, online users)
@@ -39,9 +43,10 @@ const usersCommand: Command = {
 
       // !users count - Show total user count
       if (subCommand === "count") {
-        await interaction.reply(
-          `There are ${members?.size} users in this server.`,
-        );
+        await interaction.reply({
+          content: `There are ${members?.size} users in this server.`,
+          flags: MessageFlags.Ephemeral,
+        });
         return;
       }
 
@@ -58,9 +63,10 @@ const usersCommand: Command = {
         const memberList = listedMembers
           .map((member) => `${member.user.username} (${member.id})`)
           .join("\n");
-        await interaction.reply(
-          `First ${amount} users in this server:\n${memberList}`,
-        );
+        await interaction.reply({
+          content: `First ${amount} users in this server:\n${memberList}`,
+          flags: MessageFlags.Ephemeral,
+        });
         return;
       }
 
@@ -71,9 +77,10 @@ const usersCommand: Command = {
         );
 
         if (!onlineMembers || onlineMembers.size === 0) {
-          await interaction.reply(
-            "No users are currently online in this server.",
-          );
+          await interaction.reply({
+            content: "No users are currently online in this server.",
+            flags: MessageFlags.Ephemeral,
+          });
           return;
         }
 
@@ -81,19 +88,26 @@ const usersCommand: Command = {
           .slice(0, 20)
           ?.map((member) => `${member.user.username} (${member.id})`)
           .join("\n");
-        await interaction.reply(`Online users in this server:\n${memberList}`);
+        await interaction.reply({
+          content: `Online users in this server:\n${memberList}`,
+          flags: MessageFlags.Ephemeral,
+        });
         return;
       }
 
       const memberList = members
         ?.map((member) => `${member.user.username} (${member.id})`)
         .join("\n");
-      await interaction.reply(
-        `${members?.size} users in this server:\n${memberList}`,
-      );
+      await interaction.reply({
+        content: `${members?.size} users in this server:\n${memberList}`,
+        flags: MessageFlags.Ephemeral,
+      });
     } catch (error) {
       console.error("Failed to fetch members:", error);
-      await interaction.reply("Sorry, I couldn't fetch the user list.");
+      await interaction.reply({
+        content: "Sorry, I couldn't fetch the user list.",
+        flags: MessageFlags.Ephemeral,
+      });
     }
   },
 };

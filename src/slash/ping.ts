@@ -1,4 +1,8 @@
-import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
+import {
+  ChatInputCommandInteraction,
+  MessageFlags,
+  SlashCommandBuilder,
+} from "discord.js";
 import type { Command } from "../types/Command.ts";
 
 // Command to respond with "Pong!" when a user types "!ping" || Server health check ping command
@@ -8,9 +12,11 @@ const pingCommand: Command = {
     .setDescription("Responds with Pong!"),
 
   async execute(interaction: ChatInputCommandInteraction) {
-    await interaction.reply({ content: "Pong!" }).catch((error) => {
-      console.error("Failed to send reply:", error);
-    });
+    await interaction
+      .reply({ content: "Pong!", flags: MessageFlags.Ephemeral })
+      .catch((error) => {
+        console.error("Failed to send reply:", error);
+      });
   },
 };
 

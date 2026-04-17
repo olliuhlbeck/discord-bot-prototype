@@ -1,4 +1,4 @@
-import type { Client, Interaction } from "discord.js";
+import { MessageFlags, type Client, type Interaction } from "discord.js";
 import { slashCommands } from "./commandRegistry.ts";
 
 export function registerInteractionHandler(client: Client) {
@@ -10,7 +10,7 @@ export function registerInteractionHandler(client: Client) {
     if (!command) {
       await interaction.reply({
         content: "Unknown command.",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -21,7 +21,7 @@ export function registerInteractionHandler(client: Client) {
       console.error(error);
       await interaction.reply({
         content: "There was an error executing that command.",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
     }
   });

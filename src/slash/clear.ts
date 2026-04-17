@@ -1,6 +1,7 @@
 import {
   ChatInputCommandInteraction,
   GuildMember,
+  MessageFlags,
   SlashCommandBuilder,
 } from "discord.js";
 import { PermissionFlagsBits } from "discord.js";
@@ -26,7 +27,7 @@ const clearCommand: Command = {
     if (!member.permissions.has(PermissionFlagsBits.ManageMessages)) {
       await interaction.reply({
         content: "You don't have permission to use this command.",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -37,17 +38,17 @@ const clearCommand: Command = {
     if (amount < 1 || amount > 100) {
       await interaction.reply({
         content: "Please provide a number between 1 and 100.",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
 
     // Defer the reply to avoid "Interaction failed" message
-    await interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
     const channel = interaction.channel;
 
-    if (!channel) {
+    if (!channel || !channel.isTextBased()) {
       await interaction.editReply({
         content: "This command can only be used in a text channel.",
       });

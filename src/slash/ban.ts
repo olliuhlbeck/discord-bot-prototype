@@ -1,6 +1,7 @@
 import {
   ChatInputCommandInteraction,
   GuildMember,
+  MessageFlags,
   PermissionFlagsBits,
   SlashCommandBuilder,
 } from "discord.js";
@@ -32,7 +33,7 @@ const banCommand: Command = {
     if (!member?.permissions.has(PermissionFlagsBits.BanMembers)) {
       await interaction.reply({
         content: "You don't have permission to use this command.",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -43,7 +44,7 @@ const banCommand: Command = {
     if (!banSubject) {
       await interaction.reply({
         content: "User not found. Cannot ban without mention of a user.",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -52,7 +53,7 @@ const banCommand: Command = {
     if (banSubject.id === interaction.user.id) {
       await interaction.reply({
         content: "You cannot ban yourself.",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -61,7 +62,7 @@ const banCommand: Command = {
     if (banSubject.id === interaction.client.user?.id) {
       await interaction.reply({
         content: "No one can ban Spearfish!",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -70,14 +71,14 @@ const banCommand: Command = {
     if (!banSubject.bannable) {
       await interaction.reply({
         content: "I don't have permission to ban this user.",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
     if (banSubject.roles.highest.position >= member.roles.highest.position) {
       await interaction.reply({
         content: "You cannot ban this user (role hierarchy).",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }

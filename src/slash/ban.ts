@@ -21,7 +21,7 @@ const banCommand: Command = {
     .addStringOption((option) =>
       option
         .setName("reason")
-        .setDescription("Reason for banning the user (optional)"),
+        .setDescription("Set reason for banning the user (optional)"),
     ),
 
   async execute(interaction: ChatInputCommandInteraction) {

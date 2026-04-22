@@ -1,5 +1,6 @@
 import { MessageFlags, type Client, type Interaction } from "discord.js";
 import { slashCommands } from "./commandRegistry.ts";
+import { isOnCoolDown } from "../utils/cooldowns.ts";
 
 export function registerInteractionHandler(client: Client) {
   client.on("interactionCreate", async (interaction: Interaction) => {
@@ -13,6 +14,22 @@ export function registerInteractionHandler(client: Client) {
         flags: MessageFlags.Ephemeral,
       });
       return;
+    }
+
+    if (command.cooldown) {
+      const timeLeft = isOnCoolDown(
+        interaction.user.id,
+        command.data.name,
+        command.cooldown,
+      );
+
+      if (timeLeft) {
+        await interaction.reply({
+          content: `Please wait ${timeLeft} more second(s) before reusing the \`${interaction.commandName}\` command.`,
+          flags: MessageFlags.Ephemeral,
+        });
+        return;
+      }
     }
 
     try {

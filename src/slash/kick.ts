@@ -23,6 +23,7 @@ const kickCommand: Command = {
         .setName("reason")
         .setDescription("Reason for kicking the user (optional)"),
     ),
+  cooldown: 5,
 
   async execute(interaction: ChatInputCommandInteraction) {
     if (!interaction.inGuild()) return;

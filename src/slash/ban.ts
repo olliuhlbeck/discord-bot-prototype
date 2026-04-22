@@ -23,6 +23,7 @@ const banCommand: Command = {
         .setName("reason")
         .setDescription("Set reason for banning the user (optional)"),
     ),
+  cooldown: 5,
 
   async execute(interaction: ChatInputCommandInteraction) {
     if (!interaction.inGuild()) return;

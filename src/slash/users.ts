@@ -33,6 +33,7 @@ const usersCommand: Command = {
         .setName("online")
         .setDescription("List all online users in the server"),
     ),
+  cooldown: 5,
 
   async execute(interaction: ChatInputCommandInteraction) {
     if (!interaction.guild) return;

@@ -5,11 +5,12 @@ import {
 } from "discord.js";
 import type { Command } from "../types/Command.ts";
 
-// Command to respond with "Pong!" when a user types "!ping" || Server health check ping command
+// Command that respond with "Pong!"  || Server health check ping command
 const pingCommand: Command = {
   data: new SlashCommandBuilder()
     .setName("ping")
     .setDescription("Responds with Pong!"),
+  cooldown: 3,
 
   async execute(interaction: ChatInputCommandInteraction) {
     await interaction

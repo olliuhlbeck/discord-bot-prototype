@@ -18,6 +18,7 @@ const clearCommand: Command = {
         .setDescription("Number of messages to delete (1–100)")
         .setRequired(true),
     ),
+  cooldown: 5,
 
   async execute(interaction: ChatInputCommandInteraction) {
     if (!interaction.inGuild()) return;

@@ -10,3 +10,4 @@ The bot responds to simple slash commands like server pinging and user listing/k
 - `/clear <amount>` for message deletion
 - `/kick @user` for user removal
 - `/ban @user` for user ban
+- Cooldown usage available for commands to prevent spamming

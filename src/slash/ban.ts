@@ -24,6 +24,7 @@ const banCommand: Command = {
         .setDescription("Set reason for banning the user (optional)"),
     ),
   cooldown: 5,
+  rolesThatCanUseCommand: ["Moderator", "Admin"],
 
   async execute(interaction: ChatInputCommandInteraction) {
     if (!interaction.inGuild()) return;

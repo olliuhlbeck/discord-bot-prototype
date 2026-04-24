@@ -24,6 +24,7 @@ const kickCommand: Command = {
         .setDescription("Reason for kicking the user (optional)"),
     ),
   cooldown: 5,
+  rolesThatCanUseCommand: ["Moderator", "Admin"],
 
   async execute(interaction: ChatInputCommandInteraction) {
     if (!interaction.inGuild()) return;

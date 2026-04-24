@@ -25,6 +25,7 @@ const banCommand: Command = {
     ),
   cooldown: 5,
   rolesThatCanUseCommand: ["Moderator", "Admin"],
+  ownerOnly: true,
 
   async execute(interaction: ChatInputCommandInteraction) {
     if (!interaction.inGuild()) return;

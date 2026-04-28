@@ -6,6 +6,7 @@ import {
 } from "discord.js";
 import { PermissionFlagsBits } from "discord.js";
 import type { Command } from "../types/Command.ts";
+import { logAction } from "../utils/logger.ts";
 
 // Command to clear a specified number of messages from the current channel
 const clearCommand: Command = {
@@ -65,6 +66,12 @@ const clearCommand: Command = {
       await interaction.editReply({
         content: `Deleted ${deleted.size} message(s).`,
       });
+
+      await logAction(
+        interaction,
+        "Messages Cleared",
+        `${interaction.user.tag} (${interaction.user.id}) cleared ${deleted.size} message(s) in ${channel}.`,
+      );
 
       setTimeout(async () => {
         try {

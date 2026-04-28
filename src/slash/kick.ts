@@ -6,6 +6,7 @@ import {
   SlashCommandBuilder,
 } from "discord.js";
 import type { Command } from "../types/Command.ts";
+import { logAction } from "../utils/logger.ts";
 
 // Command to kick a user from the server
 const kickCommand: Command = {
@@ -89,6 +90,12 @@ const kickCommand: Command = {
         content: `${kickSubject.user.tag} was kicked. Reason for kick: ${reasonForKick}`,
         flags: MessageFlags.Ephemeral,
       });
+
+      await logAction(
+        interaction,
+        "User Kicked",
+        `${kickSubject.user.tag} (${kickSubject.id}) was kicked. Reason: ${reasonForKick}`,
+      );
     } catch (error) {
       console.error("Failed to kick member:", error);
       await interaction.reply({

@@ -6,6 +6,7 @@ import {
   SlashCommandBuilder,
 } from "discord.js";
 import type { Command } from "../types/Command.ts";
+import { logAction } from "../utils/logger.ts";
 
 // Command to ban a user from the server
 const banCommand: Command = {
@@ -25,7 +26,6 @@ const banCommand: Command = {
     ),
   cooldown: 5,
   rolesThatCanUseCommand: ["Moderator", "Admin"],
-  ownerOnly: true,
 
   async execute(interaction: ChatInputCommandInteraction) {
     if (!interaction.inGuild()) return;
@@ -97,8 +97,15 @@ const banCommand: Command = {
         deleteMessageSeconds: 60 * 60 * 24, // delete last 24h messages
       });
 
-      await interaction.reply(
-        `${banSubject.user.tag} was banned. Reason: ${reasonForBan}`,
+      await interaction.reply({
+        content: `${banSubject.user.tag} was banned. Reason for ban: ${reasonForBan}`,
+        flags: MessageFlags.Ephemeral,
+      });
+
+      await logAction(
+        interaction,
+        "User Banned",
+        `${banSubject.user.tag} (${banSubject.id}) was banned. Reason: ${reasonForBan}`,
       );
     } catch (error) {
       console.error(error);

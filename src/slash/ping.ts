@@ -4,6 +4,7 @@ import {
   SlashCommandBuilder,
 } from "discord.js";
 import type { Command } from "../types/Command.ts";
+import { logAction } from "../utils/logger.ts";
 
 // Command that respond with "Pong!"  || Server health check ping command
 const pingCommand: Command = {
@@ -13,11 +14,21 @@ const pingCommand: Command = {
   cooldown: 3,
 
   async execute(interaction: ChatInputCommandInteraction) {
-    await interaction
-      .reply({ content: "Pong!", flags: MessageFlags.Ephemeral })
-      .catch((error) => {
-        console.error("Failed to send reply:", error);
-      });
+    try {
+      await interaction
+        .reply({ content: "Pong!", flags: MessageFlags.Ephemeral })
+        .catch((error) => {
+          console.error("Failed to send reply:", error);
+        });
+
+      await logAction(
+        interaction,
+        "🏓 Ping Command",
+        `User: ${interaction.user.tag} (${interaction.user.id})`,
+      );
+    } catch (error) {
+      console.error("Error executing ping command:", error);
+    }
   },
 };
 

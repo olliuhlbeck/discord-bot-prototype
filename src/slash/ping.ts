@@ -23,7 +23,7 @@ const pingCommand: Command = {
 
       await logAction(
         interaction,
-        "🏓 Ping Command",
+        "Ping Command",
         `User: ${interaction.user.tag} (${interaction.user.id})`,
       );
     } catch (error) {

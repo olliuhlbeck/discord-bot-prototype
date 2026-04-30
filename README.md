@@ -3,11 +3,17 @@
 A basic Discord bot built using Node.js and discord.js.  
 The bot responds to simple slash commands like server pinging and user listing/kicking. See full list of features below.
 
-## Features
+## Commands
 
 - `/ping` for server check
 - `/users` with count, list, and online subcommands for user related commands
 - `/clear <amount>` for message deletion
 - `/kick @user` for user removal
 - `/ban @user` for user ban
+
+## Features
+
+- Slash command automatic loading system
+- Role specific permission system
+- Loggin system that helps moderators control command usage
 - Cooldown usage available for commands to prevent spamming

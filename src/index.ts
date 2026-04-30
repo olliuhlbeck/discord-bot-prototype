@@ -13,8 +13,12 @@ const client = new Client({
 client.once(Events.ClientReady, async () => {
   console.log(`Logged in as ${client.user?.tag}!`);
 
-  await loadSlashCommands();
-  await registerSlashCommands();
+  try {
+    await loadSlashCommands();
+    await registerSlashCommands();
+  } catch (error) {
+    console.error("Error during slash command setup:", error);
+  }
 });
 
 registerInteractionHandler(client);

@@ -4,7 +4,7 @@ dotenv.config();
 
 import { registerSlashCommands } from "./loader/registerCommands.js";
 import { registerInteractionHandler } from "./loader/handleInteractions.js";
-import { loadSlashCommands } from "./loader/loadSlashCommands.ts";
+import { loadSlashCommands } from "./loader/loadSlashCommands.js";
 
 const client = new Client({
   intents: [GatewayIntentBits.Guilds],

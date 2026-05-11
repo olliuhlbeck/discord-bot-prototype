@@ -9,8 +9,13 @@ function readWarnings(): WarningData {
     fs.writeFileSync(warningsPath, "{}");
   }
 
-  const data = fs.readFileSync(warningsPath, "utf-8");
-  return JSON.parse(data);
+  try {
+    const data = fs.readFileSync(warningsPath, "utf-8");
+    return JSON.parse(data);
+  } catch (error) {
+    console.error("Error reading warnings file:", error);
+    return {};
+  }
 }
 
 function saveWarnings(data: WarningData) {

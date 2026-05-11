@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import type { WarningData, WarningEntry } from "../types/Warning.js";
 
-const warningsPath = path.join(process.cwd(), "warnings.json");
+const warningsPath = path.join(process.cwd(), "data", "warnings.json");
 
 function readWarnings(): WarningData {
   if (!fs.existsSync(warningsPath)) {

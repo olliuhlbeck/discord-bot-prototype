@@ -17,6 +17,12 @@ const warnCommand: Command = {
         .setName("user")
         .setDescription("The user to warn")
         .setRequired(true),
+    )
+    .addStringOption((option) =>
+      option
+        .setName("reason")
+        .setDescription("Reason for the warning")
+        .setRequired(false),
     ),
   cooldown: 5,
 

@@ -3,8 +3,8 @@ import {
   MessageFlags,
   SlashCommandBuilder,
 } from "discord.js";
-import type { Command } from "../types/Command.ts";
-import { logAction } from "../utils/logger.ts";
+import type { Command } from "../types/Command.js";
+import { logAction } from "../utils/logger.js";
 
 // Command that respond with "Pong!"  || Server health check ping command
 const pingCommand: Command = {

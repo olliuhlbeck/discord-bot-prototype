@@ -5,8 +5,8 @@ import {
   type ChatInputCommandInteraction,
 } from "discord.js";
 import type { Command } from "../types/Command.js";
-import { addWarning, getWarnings } from "../utils/warnings.ts";
-import { logAction } from "../utils/logger.ts";
+import { addWarning, getWarnings } from "../utils/warnings.js";
+import { logAction } from "../utils/logger.js";
 
 const warnCommand: Command = {
   data: new SlashCommandBuilder()

@@ -3,7 +3,7 @@ import {
   MessageFlags,
   SlashCommandBuilder,
 } from "discord.js";
-import type { Command } from "../types/Command.ts";
+import type { Command } from "../types/Command.js";
 
 // Command to list users with different options (total count, list of users, online users)
 const usersCommand: Command = {

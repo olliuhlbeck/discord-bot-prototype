@@ -5,8 +5,8 @@ import {
   SlashCommandBuilder,
 } from "discord.js";
 import { PermissionFlagsBits } from "discord.js";
-import type { Command } from "../types/Command.ts";
-import { logAction } from "../utils/logger.ts";
+import type { Command } from "../types/Command.js";
+import { logAction } from "../utils/logger.js";
 
 // Command to clear a specified number of messages from the current channel
 const clearCommand: Command = {

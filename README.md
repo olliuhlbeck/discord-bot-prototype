@@ -10,6 +10,8 @@ The bot responds to simple slash commands like server pinging and user listing/k
 - `/clear <amount>` for message deletion
 - `/kick @user` for user removal
 - `/ban @user` for user ban
+- `warn @user` to issues warning for user
+- `/clearWarnings` to clear issued warnings from user
 
 ## Features
 
@@ -17,3 +19,4 @@ The bot responds to simple slash commands like server pinging and user listing/k
 - Role specific permission system
 - Loggin system that helps moderators control command usage
 - Cooldown usage available for commands to prevent spamming
+- Warning/Kick/Ban system for moderators to control server users

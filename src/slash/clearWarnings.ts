@@ -42,7 +42,7 @@ const clearWarningsCommand: Command = {
     }
 
     try {
-      const existingWarnings = getWarnings(target.id);
+      const existingWarnings = await getWarnings(target.id);
 
       if (existingWarnings.length === 0) {
         await interaction.reply({

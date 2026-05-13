@@ -50,7 +50,7 @@ const warnCommand: Command = {
       timestamp: Date.now(),
     });
 
-    const warnings = getWarnings(target.id);
+    const warnings = await getWarnings(target.id);
 
     await interaction.reply({
       content: `Warned ${target.user.tag}. Total warnings: ${warnings.length}`,

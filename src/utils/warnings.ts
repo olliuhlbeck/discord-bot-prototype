@@ -1,16 +1,15 @@
-import fs from "fs";
+import fs from "fs/promises";
 import path from "path";
 import type { WarningData, WarningEntry } from "../types/Warning.js";
 
 const warningsPath = path.join(process.cwd(), "data", "warnings.json");
 
-function readWarnings(): WarningData {
-  if (!fs.existsSync(warningsPath)) {
-    fs.writeFileSync(warningsPath, "{}");
-  }
+// Serialize all writes to prevent race conditions since using JSON database.
+let writeQueue: Promise<void> = Promise.resolve();
 
+async function readWarnings(): Promise<WarningData> {
   try {
-    const data = fs.readFileSync(warningsPath, "utf-8");
+    const data = await fs.readFile(warningsPath, "utf-8");
     return JSON.parse(data);
   } catch (error) {
     console.error("Error reading warnings file:", error);
@@ -18,32 +17,38 @@ function readWarnings(): WarningData {
   }
 }
 
-function saveWarnings(data: WarningData) {
-  fs.writeFileSync(warningsPath, JSON.stringify(data, null, 2));
+async function saveWarnings(data: WarningData): Promise<void> {
+  await fs.mkdir(path.dirname(warningsPath), { recursive: true });
+  await fs.writeFile(warningsPath, JSON.stringify(data, null, 2));
 }
 
-export function addWarning(userId: string, warning: WarningEntry) {
-  const warnings = readWarnings();
-
-  if (!warnings[userId]) {
-    warnings[userId] = [];
-  }
-
-  warnings[userId].push(warning);
-
-  saveWarnings(warnings);
+function enqueueWrite(task: () => Promise<void>): Promise<void> {
+  writeQueue = writeQueue.then(task).catch(console.error);
+  return writeQueue;
 }
 
-export function getWarnings(userId: string): WarningEntry[] {
-  const warnings = readWarnings();
-
-  return warnings[userId] || [];
+export async function addWarning(
+  userId: string,
+  warning: WarningEntry,
+): Promise<void> {
+  return enqueueWrite(async () => {
+    const warnings = await readWarnings();
+    warnings[userId] ??= [];
+    warnings[userId].push(warning);
+    await saveWarnings(warnings);
+  });
 }
 
-export function clearWarnings(userId: string) {
-  const warnings = readWarnings();
+export async function getWarnings(userId: string): Promise<WarningEntry[]> {
+  const warnings = await readWarnings();
 
-  delete warnings[userId];
+  return warnings[userId] ?? [];
+}
 
-  saveWarnings(warnings);
+export async function clearWarnings(userId: string): Promise<void> {
+  return enqueueWrite(async () => {
+    const warnings = await readWarnings();
+    delete warnings[userId];
+    await saveWarnings(warnings);
+  });
 }

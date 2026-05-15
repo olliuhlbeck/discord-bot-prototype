@@ -45,7 +45,7 @@ const warnCommand: Command = {
       interaction.options.getString("reason") || "No reason provided";
 
     // Try handing the actual warning
-    addWarning(target.id, {
+    await addWarning(target.id, {
       moderatorID: interaction.user.id,
       reason,
       timestamp: Date.now(),

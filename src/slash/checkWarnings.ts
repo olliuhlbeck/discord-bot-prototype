@@ -52,13 +52,15 @@ const checkWarnings: Command = {
       }
 
       const warningList = warnings
-        .map(
-          (warning, index) =>
-            `${index + 1}. ${warning.reason} (issued on ${new Date(
-              warning.timestamp,
-            ).toLocaleDateString()})`,
-        )
-        .join("\n");
+        .map((warning, index) => {
+          return [
+            `#${index + 1}`,
+            `Reason: ${warning.reason}`,
+            `Moderator: <@${warning.moderatorID}>`,
+            `Date: ${new Date(warning.timestamp).toLocaleDateString()}`,
+          ].join("\n");
+        })
+        .join("\n\n");
 
       await interaction.reply({
         content: `${target.user.tag} has the following warnings:\n${warningList}`,

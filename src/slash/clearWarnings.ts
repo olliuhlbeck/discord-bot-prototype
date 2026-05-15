@@ -12,6 +12,7 @@ import { clearWarnings, getWarnings } from "../utils/warnings.js";
 
 import { logAction } from "../utils/logger.js";
 
+// Command to clear all warnings from a user
 const clearWarningsCommand: Command = {
   data: new SlashCommandBuilder()
     .setName("clearwarnings")

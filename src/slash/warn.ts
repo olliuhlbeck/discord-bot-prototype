@@ -8,6 +8,7 @@ import type { Command } from "../types/Command.js";
 import { addWarning, getWarnings } from "../utils/warnings.js";
 import { logAction } from "../utils/logger.js";
 
+// Command to issue a warning to a user
 const warnCommand: Command = {
   data: new SlashCommandBuilder()
     .setName("warn")

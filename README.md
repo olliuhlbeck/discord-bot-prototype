@@ -11,6 +11,7 @@ The bot responds to simple slash commands like server pinging and user listing/k
 - `/kick @user` for user removal
 - `/ban @user` for user ban
 - `warn @user` to issues warning for user
+- `/checkwarnings @user` to check all users warnings, reasons for them and admin/moderator who gave the warnings
 - `/clearWarnings @user` to clear issued warnings from user
 
 ## Features

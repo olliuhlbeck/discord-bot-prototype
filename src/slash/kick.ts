@@ -25,6 +25,8 @@ const kickCommand: Command = {
         .setDescription("Reason for kicking the user (optional)"),
     ),
   cooldown: 5,
+  permissions: [PermissionFlagsBits.ModerateMembers],
+  ownerOnly: false,
   rolesThatCanUseCommand: ["Moderator", "Admin"],
 
   async execute(interaction: ChatInputCommandInteraction) {

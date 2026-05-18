@@ -20,6 +20,9 @@ const clearCommand: Command = {
         .setRequired(true),
     ),
   cooldown: 5,
+  permissions: [PermissionFlagsBits.ModerateMembers],
+  ownerOnly: false,
+  rolesThatCanUseCommand: ["Moderator", "Admin"],
 
   async execute(interaction: ChatInputCommandInteraction) {
     if (!interaction.inGuild()) return;

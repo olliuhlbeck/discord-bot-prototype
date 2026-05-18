@@ -25,6 +25,8 @@ const banCommand: Command = {
         .setDescription("Set reason for banning the user (optional)"),
     ),
   cooldown: 5,
+  permissions: [PermissionFlagsBits.ModerateMembers],
+  ownerOnly: false,
   rolesThatCanUseCommand: ["Moderator", "Admin"],
 
   async execute(interaction: ChatInputCommandInteraction) {

@@ -1,6 +1,7 @@
 import {
   GuildMember,
   MessageFlags,
+  PermissionFlagsBits,
   SlashCommandBuilder,
   type ChatInputCommandInteraction,
 } from "discord.js";
@@ -26,6 +27,9 @@ const warnCommand: Command = {
         .setRequired(false),
     ),
   cooldown: 5,
+  permissions: [PermissionFlagsBits.ModerateMembers],
+  ownerOnly: false,
+  rolesThatCanUseCommand: ["Moderator", "Admin"],
 
   async execute(interaction: ChatInputCommandInteraction) {
     if (!interaction.inGuild()) return;

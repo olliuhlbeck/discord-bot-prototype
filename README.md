@@ -18,6 +18,6 @@ The bot responds to simple slash commands like server pinging and user listing/k
 
 - Slash command automatic loading system
 - Role specific permission system
-- Loggin system that helps moderators control command usage
+- Logging system that helps moderators control command usage
 - Cooldown usage available for commands to prevent spamming
 - Warning/Kick/Ban system for moderators to control server users

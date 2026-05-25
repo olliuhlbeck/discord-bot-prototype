@@ -40,15 +40,13 @@ describe("isOnCooldown", () => {
 
   it("tracks cooldowns independently per command", () => {
     isOnCoolDown("ping", "user-x", 10);
-    // same user, different command — should not be on cooldown
     expect(isOnCoolDown("kick", "user-x", 10)).toBeNull();
   });
 
   it("returns the correct remaining time (within 1 second tolerance)", () => {
     isOnCoolDown("warn", "user-5", 30);
-    vi.advanceTimersByTime(10000); // 10s later
+    vi.advanceTimersByTime(10000);
     const result = isOnCoolDown("warn", "user-5", 30);
-    // 20 seconds remaining
     expect(result).toBeGreaterThanOrEqual(19);
     expect(result).toBeLessThanOrEqual(20);
   });

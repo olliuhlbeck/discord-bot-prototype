@@ -1,7 +1,8 @@
 # Discord bot prototype
 
-A basic Discord bot built using Node.js and discord.js.  
+A basic Discord bot built using Node.js and discord.js.
 The bot responds to simple slash commands like server pinging and user listing/kicking. See full list of features below.
+Used test writing for this project as a getting familiar moment with VSCodes agentic skill creating feature.
 
 ## Commands
 

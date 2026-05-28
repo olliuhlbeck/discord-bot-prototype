@@ -49,11 +49,19 @@ const warnCommand: Command = {
       interaction.options.getString("reason") || "No reason provided";
 
     // Try handing the actual warning
-    await addWarning(target.id, {
-      moderatorID: interaction.user.id,
-      reason,
-      timestamp: Date.now(),
-    });
+    try {
+      await addWarning(target.id, {
+        moderatorID: interaction.user.id,
+        reason,
+        timestamp: Date.now(),
+      });
+    } catch {
+      await interaction.reply({
+        content: "Failed to save warning.",
+        flags: MessageFlags.Ephemeral,
+      });
+      return;
+    }
 
     const warnings = await getWarnings(target.id);
 

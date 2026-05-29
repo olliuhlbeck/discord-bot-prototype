@@ -27,11 +27,6 @@ export function checkPermissions(
     }
   }
 
-  // Check if the command is owner-only and if the user is the owner
-  if (command.ownerOnly && interaction.user.id !== BOT_OWNER_ID) {
-    return "You do not have permission to use this command.";
-  }
-
   // Discord permission check
   if (command.permissions) {
     const missingPermission = command.permissions.filter(

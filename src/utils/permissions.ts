@@ -1,8 +1,6 @@
 import type { ChatInputCommandInteraction, GuildMember } from "discord.js";
 import type { Command } from "../types/Command.ts";
 
-const BOT_OWNER_ID = process.env.BOT_OWNER_ID;
-
 export function checkPermissions(
   interaction: ChatInputCommandInteraction,
   command: Command,
@@ -15,6 +13,8 @@ export function checkPermissions(
 
   // Check if owner id is defined in environment variables when calling owner-only command
   if (command.ownerOnly) {
+    const BOT_OWNER_ID = process.env.BOT_OWNER_ID;
+
     if (!BOT_OWNER_ID) {
       console.warn(
         "BOT_OWNER_ID is not defined. Owner-only commands will not work.",
@@ -25,11 +25,6 @@ export function checkPermissions(
     if (interaction.user.id !== BOT_OWNER_ID) {
       return "You do not have permission to use this command.";
     }
-  }
-
-  // Check if the command is owner-only and if the user is the owner
-  if (command.ownerOnly && interaction.user.id !== BOT_OWNER_ID) {
-    return "You do not have permission to use this command.";
   }
 
   // Discord permission check

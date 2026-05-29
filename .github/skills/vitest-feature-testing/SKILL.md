@@ -86,7 +86,25 @@ For Discord.js interactions or system calls:
 
 See [mocking guide](./references/mocking-patterns.md).
 
-### 5. Test State Tracking & Isolation
+### 5. Mocking Discord Interactions
+
+When testing slash commands:
+
+- Mock `reply`, `followUp`, `deferReply`, and `editReply` with `vi.fn()`
+- Mock `options.getUser`, `options.getMember`, `options.getString`, etc.
+- Mock guild/member permissions when required
+- Verify responses with `toHaveBeenCalledWith`
+
+Example:
+
+const mockInteraction = {
+reply: vi.fn(),
+options: {
+getMember: vi.fn().mockReturnValue(mockMember),
+},
+} as unknown as ChatInputCommandInteraction;
+
+### 6. Test State Tracking & Isolation
 
 When testing features that track state per user/command/context:
 
@@ -95,7 +113,7 @@ When testing features that track state per user/command/context:
 - Check that modifications in one scenario don't affect others
 - Use descriptive user/command IDs to trace test data
 
-### 6. Run & Verify
+### 7. Run & Verify
 
 ```bash
 npm test                    # Run all tests

@@ -9,6 +9,7 @@ Used test writing in this project to get familiar with VS Codes agentic skill cr
 - `/ping` for server check
 - `/users` with count, list, and online subcommands for user related commands
 - `/clear <amount>` for message deletion
+- `/timeout @user` for X amount of minutes for various reasons
 - `/kick @user` for user removal
 - `/ban @user` for user ban
 - `warn @user` to issues warning for user

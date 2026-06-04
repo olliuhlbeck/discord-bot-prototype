@@ -18,8 +18,8 @@ export function registerInteractionHandler(client: Client) {
 
     if (command.cooldown) {
       const timeLeft = isOnCoolDown(
-        interaction.user.id,
         command.data.name,
+        interaction.user.id,
         command.cooldown,
       );
 

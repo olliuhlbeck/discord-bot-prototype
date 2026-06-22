@@ -54,7 +54,7 @@ const clearWarningsCommand: Command = {
         return;
       }
 
-      clearWarnings(target.id);
+      await clearWarnings(target.id);
 
       await interaction.reply({
         content: `Cleared ${existingWarnings.length} warning(s) from ${target.user.tag}.`,
